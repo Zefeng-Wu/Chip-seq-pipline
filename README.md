@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## ChIP-seq workflow
 
 You can use the [editor on GitHub](https://github.com/Zefeng-Wu/Chip-seq-pipline/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
