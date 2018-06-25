@@ -1,28 +1,28 @@
 # ChIP-seq workflow
 
-I have developed a general framework to handel ChIP-seq data, inclduding download .sra data, fastq file extract. quality filter, reads mapping, uniqe mapping extract, pcr duplciation removal, peak calling and peak visulization.
+I have developed a general framework to handel ChIP-seq data, including download .sra data, fastq file extract, quality filter, reads mapping, uniqe mapping extract, PCR duplication removal, peak calling and peak visualization.
 
 
-## preparation 
+## 0. Working preparation 
     mkdir work_directory
     cd work_directory
     mkdir 1fastq 2fastqc 3filtered_fq 4sam 5uniq_sam 6sorted_bam 7dedup_bam 8macs2
 
 
-## 1.download data from sra list file (download.txt);
+## 1.Download data from sra list file (download.txt);
     awk 'type=substr($0,1,3){pre_id=substr($0,1,6)}split($1,m,"."){print "/sra/sra-instant/reads/ByRun/sra/"type"/"pre_id"/"m[1]"/"$1".sra"}' SraAccList.txt > download.txt 
     for m in $(cat download.txt); do if [ ! -e $(basename $m) ]; then echo $m; ascp -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh -k 1 -QT -l 200m anonftp@ftp-trace.ncbi.nlm.nih.gov:$m .; fi; done
 
-##  2.convert sra data to fastq format;
+##  2.Convert sra data to fastq format;
 
     for sra in $(ls *.sra); do fastq-dump $m --split-files -O 1fastq;done   #used for paired-end sequenced data
     for sra in $(ls *.sra); do fastq-dump $m -O 1fastq;done                 #used for single-end sequenced data
 
-## 3.fastqc 
+## 3.fastqc inspceting 
     cd 1fastq
     for m in $(ls *.fastq); do echo $m; fastqc $m  -o ../2fastqc; done
 
-## 4 fastqc filter
+## 4 Reads filter
 ### (1) Trimmomatic
 #### (1.1) paired-end
     cd ../1fastq
@@ -38,7 +38,7 @@ I have developed a general framework to handel ChIP-seq data, inclduding downloa
 #### paired-end
     for m in $(ls *.filtered.fastq); do bowtie2 -x ~/gebnome.index -U $m  -S ../4sam/$m.sam  -p 7  --no-unal; done
 
-## 6.get unique mapped reads
+## 6.Get unique mapped reads
     cd ../4sam/
     for m in $(ls *.sam); do samtools view -Sh $m | grep -e "^@" -e "XM:i:[012][^0-9]" | grep -v "XS:i:" > ../5uniq_sam/$m.uniq.sam;done
 
@@ -46,11 +46,11 @@ I have developed a general framework to handel ChIP-seq data, inclduding downloa
     cd ../5uniq_sam
     for  m in $(ls *.sam); do  picard-tools SortSam  INPUT=$m OUTPUT=../6sorted_bam/$m.sorted.bam SO=coordinate; done
 
-## 8.drop duplications 
+## 8.Remove duplications 
     cd ../6sorted_bam
     for m in $(ls *.bam); do samtools rmdup -s $m ../7dedup_bam/$m.dedup.bam ; done
 
-## 9.macs
+## 9.Peak calling
     cd ../7dedup_bam
     macs2 callpeak -t H3K4me3.bam -c input.bam -f BAM -g 1.2e8 -n H3K4me3 -B --SPMR -q  0.01 --outdir ../8macs2/narrow/  # narrow peak
     macs2 callpeak -t H3K4me3.bam -c input.bam -f BAM -g 1.2e8 -n H3K4me3.bam -B --SPMR  --broad --broad-cutoff 0.1  --outdir ../8macs2/broad  # broad peaks
@@ -61,7 +61,7 @@ I have developed a general framework to handel ChIP-seq data, inclduding downloa
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Statistics
+### Vistor statistics
 
 <script type="text/javascript" src="//ra.revolvermaps.com/0/0/7.js?i=0ypfp1eocyh&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0" async="async"></script>
 
