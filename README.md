@@ -1,20 +1,12 @@
-## ChIP-seq workflow
-
-You can use the [editor on GitHub](https://github.com/Zefeng-Wu/Chip-seq-pipline/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Work flow
+# ChIP-seq workflow
 
 I have developed a general framework to handel ChIP-seq data, inclduding download .sra data, fastq file extract. quality filter, reads mapping, uniqe mapping extract, pcr duplciation removal, peak calling and peak visulization.
 
+## **SRA download**
 
-Syntax highlighted code block
+## Conveting to fastq file
 
-# SRA download
-
-## Header 2
-### Header 3
+## Quality inspecting and filtering
 
 - Bulleted
 - List
