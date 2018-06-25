@@ -2,6 +2,11 @@
 
 I have developed a general framework to handel ChIP-seq data, inclduding download .sra data, fastq file extract. quality filter, reads mapping, uniqe mapping extract, pcr duplciation removal, peak calling and peak visulization.
 
+
+if (isAwesome){
+  return true
+}
+
 ## preparation 
 mkdir work_directory
 cd work_directory
