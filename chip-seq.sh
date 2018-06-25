@@ -1,10 +1,10 @@
 #/usr/bin/
 
-```
+
 if (isAwesome){
   return true
 }
-```
+
 
 
 ### preparation 
