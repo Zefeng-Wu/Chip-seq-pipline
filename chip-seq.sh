@@ -1,5 +1,12 @@
 #/usr/bin/
 
+```
+if (isAwesome){
+  return true
+}
+```
+
+
 ### preparation 
 mkdir work_directory
 cd work_directory
