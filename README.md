@@ -6,12 +6,13 @@ Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://j
 
 ### Work flow
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+I have developed a general framework to handel ChIP-seq data, inclduding download .sra data, fastq file extract. quality filter, reads mapping, uniqe mapping extract, pcr duplciation removal, peak calling and peak visulization.
 
-```markdown
+
 Syntax highlighted code block
 
-# Header 1
+# SRA download
+
 ## Header 2
 ### Header 3
 
@@ -24,11 +25,11 @@ Syntax highlighted code block
 **Bold** and _Italic_ and `Code` text
 
 [Link](url) and ![Image](src)
-```
+
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### statistics
+### Statistics
 
 <script type="text/javascript" src="//ra.revolvermaps.com/0/0/7.js?i=0ypfp1eocyh&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0" async="async"></script>
 
